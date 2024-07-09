@@ -51,7 +51,7 @@ public class DefaultController implements Serializable{
 			@RequestParam(name = "formatoRespuesta", defaultValue = "json", required = false) String formatoRespuesta) {
 		GlobalResponse res = new GlobalResponse();
 		try {
-			res.setCodigoOperacion(cuo.substring(1, cuo.length()-1));
+			res.setCodigoOperacion(cuo);
 			res.setCodigo(ProjectConstants.Error.CEXITO);
 			res.setDescripcion("Versión actual de aplicativo");
 			Map<String, String> healthcheck = new HashMap<String, String>();
@@ -87,7 +87,7 @@ public class DefaultController implements Serializable{
 			@RequestAttribute(name=ProjectConstants.AUD_IP) String ipRemota,
 			@RequestParam(required = true) String token) {
 		GlobalResponse res = new GlobalResponse();
-		res.setCodigoOperacion(cuo.substring(1, cuo.length()-1));
+		res.setCodigoOperacion(cuo);
 		try {			
 			byte[] signingKey = SecurityConstants.JWT_SECRET.getBytes();
 

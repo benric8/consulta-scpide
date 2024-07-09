@@ -49,7 +49,7 @@ public class ConsultarConadisController implements Serializable{
 			@RequestParam(name="numeroDocumentoIdentidad", required = true)
 			String numeroDocumentoIdentidad){
 		GlobalResponse res = new GlobalResponse();
-		res.setCodigoOperacion(cuo.substring(1, cuo.length()-1));
+		res.setCodigoOperacion(cuo);
 		
 		try {
 			ConadisBuscarPesonaBodyResponse data = client.buscarPersonaDiscapacidad(cuo, numeroDocumentoIdentidad);

@@ -54,7 +54,7 @@ public class ConsultarSunarpController implements Serializable{
 	public ResponseEntity<GlobalResponse> buscarOficinas(@RequestAttribute(name=ProjectConstants.AUD_CUO) String cuo,
 			@RequestParam(name = "formatoRespuesta", defaultValue = "json", required = false) String formatoRespuesta){
 		GlobalResponse res = new GlobalResponse();
-		res.setCodigoOperacion(cuo.substring(1, cuo.length()-1));
+		res.setCodigoOperacion(cuo);
 		try {
 			SunarpBuscarOficinasResponse data = clientSunarp.buscarOficinas(cuo);
 			res.setCodigo(ProjectConstants.Error.CEXITO);
@@ -102,7 +102,7 @@ public class ConsultarSunarpController implements Serializable{
 			@RequestParam(name="razonSocial", required = false)
 			String razonSocial){
 		GlobalResponse res = new GlobalResponse();
-		res.setCodigoOperacion(cuo.substring(1, cuo.length()-1));
+		res.setCodigoOperacion(cuo);
 		try {
 			SunarpBuscarTitularidadBodyResponse data = clientSunarp.buscarTituaridad(cuo, tipoParticipante, 
 					ProjectUtils.isNull(apellidoPaterno), ProjectUtils.isNull(apellidoMaterno), ProjectUtils.isNull(nombres), 
@@ -147,7 +147,7 @@ public class ConsultarSunarpController implements Serializable{
 			@RequestParam(name="partida", required = true)
 			String partida){
 		GlobalResponse res = new GlobalResponse();
-		res.setCodigoOperacion(cuo.substring(1, cuo.length()-1));
+		res.setCodigoOperacion(cuo);
 		try {
 			try {
 				SunarpBuscarAsientosResponse data = clientSunarp.buscarAsientos(cuo, registro, zona, oficina, partida);
@@ -198,7 +198,7 @@ public class ConsultarSunarpController implements Serializable{
 			@RequestParam(name="pagina", required = true)
 			String pagina){
 		GlobalResponse res = new GlobalResponse();
-		res.setCodigoOperacion(cuo.substring(1, cuo.length()-1));
+		res.setCodigoOperacion(cuo);
 		try {
 			SunarpBuscarAsientoImagenResponse data = clientSunarp.buscarAsientoImagen(cuo, transaccion, idImg, tipo, nroTotalPag, nroPagRef, pagina);
 			res.setCodigo(ProjectConstants.Error.CEXITO);
@@ -236,7 +236,7 @@ public class ConsultarSunarpController implements Serializable{
 			@RequestParam(name="placa", required = false)
 			String placa){
 		GlobalResponse res = new GlobalResponse();
-		res.setCodigoOperacion(cuo.substring(1, cuo.length()-1));
+		res.setCodigoOperacion(cuo);
 		try {
 			SunarpBuscarVehiculoDetalleResponse data = clientSunarp.buscarVehiculoDetalle(cuo, zona, oficina, placa);
 			res.setCodigo(ProjectConstants.Error.CEXITO);
@@ -265,7 +265,7 @@ public class ConsultarSunarpController implements Serializable{
 			@RequestParam(name="razonSocial", required = true)
 			String razonSocial){
 		GlobalResponse res = new GlobalResponse();
-		res.setCodigoOperacion(cuo.substring(1, cuo.length()-1));
+		res.setCodigoOperacion(cuo);
 		try {
 			SunarpBuscarPersonaJuridicaResponse data = clientSunarp.buscarPersonaJuridica(cuo, razonSocial);
 			res.setCodigo(ProjectConstants.Error.CEXITO);

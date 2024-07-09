@@ -10,8 +10,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import pe.gob.pj.cspide.domain.exceptions.ErrorException;
 import pe.gob.pj.cspide.domain.model.auditoriageneral.AuditoriaAplicativos;
@@ -28,6 +32,8 @@ import pe.gob.pj.cspide.infraestructure.rest.response.GlobalResponse;
 
 @Slf4j
 @RestController
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ConsultarReniecController implements ConsultarReniec, Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -39,26 +45,32 @@ public class ConsultarReniecController implements ConsultarReniec, Serializable 
 	@Autowired
 	private AuditoriaGeneralMapper auditoriaGeneralMapper;
 
-	public ConsultarReniecController(ConsultaUseCasePort consultaUseCasePort,
-			AuditoriaGeneralUseCasePort auditoriaGeneralUseCasePort) {
-		this.consultaUseCasePort = consultaUseCasePort;
-		this.auditoriaGeneralUseCasePort = auditoriaGeneralUseCasePort;
-	}
-
 	@PostMapping(value = "buscar/persona-dni")
 	public ResponseEntity<GlobalResponse> buscarPersonaDni(String cuo, String ips, String usuauth, String uri,
 			String params, String herramienta, ConsultarPersonaReniecRequest request) {
 		GlobalResponse res = new GlobalResponse();
-		res.setCodigoOperacion(cuo.substring(1, cuo.length() - 1));
+		res.setCodigoOperacion(cuo);
 
+		long inicio = System.currentTimeMillis();
 		try {
-			long inicio = System.currentTimeMillis();
 			PersonaConsultadaReniec data = consultaUseCasePort.consultarPersonaPorDni(cuo,
 					request.getNumeroDocumentoIdentidad(), request.getCodigoAplicativo());
 			res.setCodigo(ProjectConstants.Error.CEXITO);
 			res.setDescripcion(ProjectConstants.Error.XEXITO);
 			res.setData(data);
-			long fin = System.currentTimeMillis();
+		} catch (ErrorException e) {
+			log.error("{} Aplicativo Consultante : {}", cuo, request.getCodigoAplicativo());
+			handleException(cuo, e, res);
+		} catch (Exception e) {
+			log.error("{} Aplicativo Consultante : {}", cuo, request.getCodigoAplicativo());
+			handleException(cuo,
+					new ErrorException(ProjectConstants.Error.CE000, ProjectConstants.Error.XERROR
+							+ ProjectConstants.Proceso.RENIEC_BUSCAR_PERSONA_POR_DNI + ProjectConstants.Error.XE000,
+							e.getMessage(), e.getCause()),
+					res);
+		}
+		long fin = System.currentTimeMillis();
+		try {
 			AuditoriaAplicativos auditoriaAplicativos = auditoriaGeneralMapper.toAuditoriaAplicativos(
 					request.getAuditoria(), cuo, ips, usuauth, uri, params, herramienta, res.getCodigo(),
 					res.getDescripcion(), fin - inicio);
@@ -66,14 +78,9 @@ public class ConsultarReniecController implements ConsultarReniec, Serializable 
 			String jsonString = objectMapper.writeValueAsString(request);
 			auditoriaAplicativos.setPeticionBody(jsonString);
 			auditoriaGeneralUseCasePort.crear(cuo, auditoriaAplicativos);
-		} catch (ErrorException e) {
-			handleException(cuo, e, res);
-		} catch (Exception e) {
-			handleException(cuo,
-					new ErrorException(ProjectConstants.Error.CE000, ProjectConstants.Error.XERROR
-							+ ProjectConstants.Proceso.RENIEC_BUSCAR_PERSONA_POR_DNI + ProjectConstants.Error.XE000,
-							e.getMessage(), e.getCause()),
-					res);
+		} catch (JsonProcessingException e) {
+			log.error("{} Aplicativo Consultante : {}", cuo, request.getCodigoAplicativo());
+			log.error("{} JsonProcessingException {} ",cuo,e);
 		}
 
 		HttpHeaders headers = new HttpHeaders();
@@ -88,7 +95,7 @@ public class ConsultarReniecController implements ConsultarReniec, Serializable 
 	public ResponseEntity<GlobalResponse> actualizarCredencialUsuario(String cuo, String ips, String usuauth,
 			String uri, String params, String herramienta, ActualizarCrendencialesUsuarioRequest request) {
 		GlobalResponse res = new GlobalResponse();
-		res.setCodigoOperacion(cuo.substring(1, cuo.length() - 1));
+		res.setCodigoOperacion(cuo);
 
 		try {
 			long inicio = System.currentTimeMillis();

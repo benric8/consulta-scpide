@@ -54,7 +54,7 @@ public class ConsultarSbsController implements Serializable {
                                                                                 String codMoneda,
                                                                                 @RequestParam(name = "formatoRespuesta", defaultValue = "json", required = false) String formatoRespuesta){
         GlobalResponse res = new GlobalResponse();
-        res.setCodigoOperacion(cuo.substring(1, cuo.length()-1));
+        res.setCodigoOperacion(cuo);
 
         try {
             SbsConsultarTipoCambioCodMonedaBodyResponse data = client.consultarTipoCambioPorFechaYCodMoneda(cuo, fecha, codMoneda);

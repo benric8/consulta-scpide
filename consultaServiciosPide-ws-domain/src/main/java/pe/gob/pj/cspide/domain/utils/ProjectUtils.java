@@ -171,7 +171,7 @@ public class ProjectUtils {
 		int aleatorio = random.nextInt(999) + 1;
 		StringBuilder cuo = new StringBuilder();
 		cuo.append(strFechaActual).append(String.valueOf(aleatorio));
-		return "[" + cuo.toString() + "]";
+		return cuo.toString();
 	}
 
 	public static Timestamp getFechaActualTimestamp() {
