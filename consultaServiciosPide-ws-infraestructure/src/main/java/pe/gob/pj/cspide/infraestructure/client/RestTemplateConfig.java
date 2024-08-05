@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import pe.gob.pj.cspide.domain.utils.ProjectProperties;
@@ -15,7 +16,10 @@ public class RestTemplateConfig {
 	
 	@Bean
     public RestTemplate restTemplate() throws IOException {
-        return new RestTemplate(clientHttpRequestFactory());
+		RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory());
+        
+        restTemplate.getMessageConverters().add(new Jaxb2RootElementHttpMessageConverter());
+        return restTemplate;
     }
 
     private ClientHttpRequestFactory clientHttpRequestFactory() throws IOException {
