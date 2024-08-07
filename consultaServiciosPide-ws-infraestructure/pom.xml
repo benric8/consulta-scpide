@@ -95,6 +95,7 @@
 			<scope>provided</scope>
 		</dependency>
 		<!-- Fin MapStruct -->
+		
 	</dependencies>
 
 	<build>
