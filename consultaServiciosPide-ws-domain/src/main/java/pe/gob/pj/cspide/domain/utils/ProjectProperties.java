@@ -29,6 +29,7 @@ public class ProjectProperties {
 	private static String servicioReniecUrl;
 	private static String servicioReniecClienteRuc;
 	private static String servicioReniecClienteAplicativos;
+	private static String servicioSunatUrl;
 
     @Autowired
     public ProjectProperties(
@@ -48,7 +49,8 @@ public class ProjectProperties {
 			@Value("${servicio.sbs.url:null}") String servicioSbsUrl,
 			@Value("${servicio.reniec.url:null}") String servicioReniecUrl,
 			@Value("${servicio.reniec.cliente.ruc:null}") String servicioReniecClienteRuc,
-			@Value("${servicio.reniec.cliente.aplicativos:null}") String servicioReniecClienteAplicativos) {
+			@Value("${servicio.reniec.cliente.aplicativos:null}") String servicioReniecClienteAplicativos,
+			@Value("${servicio.sunat.url:null}") String servicioSunatUrl) {
 
         ProjectProperties.seguridadSecretToken = seguridadSecretToken;
         ProjectProperties.seguridadIdAplicativo = seguridadIdAplicativo;
@@ -67,7 +69,10 @@ public class ProjectProperties {
 		ProjectProperties.servicioReniecUrl = servicioReniecUrl;
 		ProjectProperties.servicioReniecClienteRuc = servicioReniecClienteRuc;
 		ProjectProperties.servicioReniecClienteAplicativos = servicioReniecClienteAplicativos;
+		ProjectProperties.servicioSunatUrl = servicioSunatUrl;
     }
+
+	
 
 	public static String getSeguridadSecretToken() {
 		return seguridadSecretToken;
@@ -133,5 +138,12 @@ public class ProjectProperties {
 		return servicioReniecClienteAplicativos;
 	}
 
+	public static String getServicioSunatUrl() {
+		return servicioSunatUrl;
+	}
+
+	public static void setServicioSunatUrl(String servicioSunatUrl) {
+		ProjectProperties.servicioSunatUrl = servicioSunatUrl;
+	}
 
 }

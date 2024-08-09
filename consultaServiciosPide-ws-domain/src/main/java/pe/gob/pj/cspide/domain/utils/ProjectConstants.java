@@ -157,6 +157,27 @@ public class ProjectConstants {
 		public static final String SBS_CONSULTAR_TIPOCAMBIO_POR_CODIGO_MONEDA = "Consultar el tipo de cambio para una moneda y fecha solicitada en la SBS";
 		public static final String RENIEC_BUSCAR_PERSONA_POR_DNI = "Buscar Persona Por Dni";
 		public static final String RENIEC_ACTUALIZAR_USUARIO = "Actualizar Usuario Consultante Reniec";
+		public static final String SUNAT_GET_DATOS_PRINCIPALES="Obtener datos principales del Contribuyente";
+		public static final String SUNAT_GET_DATOS_SECUNDARIOS = "Obtener datos Secundarios del Contribuyente";
+		public static final String SUNAT_GET_DATOS_T1144 = "Obtener datos de T1144 del Contribuyente";
+		public static final String SUNAT_GET_DATOS_T362 = "Obtener datos de T362 del Contribuyente";
+		public static final String SUNAT_GET_DOMICILIO_LEGAL = "Obtener datos del Domicilio Legal";
+		public static final String SUNAT_GET_ESTABLECIMIENTOS_ANEXOS = "Obtener datos de los Establecimientos Anexos";
+		public static final String SUNAT_GET_EST_ANEXOS_T1150 = "Obtener datos de los Establecimientos Anexos T1150";
+		public static final String SUNAT_GET_REP_LEGALES = "Obtener datos de los Representantes Legales";
+		public static final String SUNAT_BUSCAR_RAZON_SOCIAL = "Buscar Razon Social";
+	}
+	
+	public class SunatServices{
+		public static final String SUNAT_GET_DATOS_PRINCIPALES="/DatosPrincipales";
+		public static final String SUNAT_GET_DATOS_SECUNDARIOS = "/DatosSecundarios";
+		public static final String SUNAT_GET_DATOS_T1144 = "/DatosT1144";
+		public static final String SUNAT_GET_DATOS_T362 = "/DatosT362";
+		public static final String SUNAT_GET_DOMICILIO_LEGAL = "/DomicilioLegal";
+		public static final String SUNAT_GET_ESTABLECIMIENTOS_ANEXOS = "/EstablecimientosAnexos";
+		public static final String SUNAT_GET_EST_ANEXOS_T1150 = "/EstAnexosT1150";
+		public static final String SUNAT_GET_REP_LEGALES = "/RepLegales";
+		public static final String SUNAT_BUSCAR_RAZON_SOCIAL = "/RazonSocial";
 	}
 	
 	public class Mensajes {

@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlType;
 @Getter @Setter
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Envelope", namespace = "http://schemas.xmlsoap.org/soap/envelope/")
-public class SunatGetDatosPrincipalesResponse  {
+public class SunatDatosPrincipalesResponse  {
 
 	@XmlElement(name = "Body", namespace = "http://schemas.xmlsoap.org/soap/envelope/")
     private Body body;
