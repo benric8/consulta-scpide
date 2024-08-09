@@ -19,11 +19,15 @@ import lombok.extern.slf4j.Slf4j;
 import pe.gob.pj.cspide.domain.exceptions.ErrorException;
 import pe.gob.pj.cspide.domain.utils.ProjectConstants;
 import pe.gob.pj.cspide.domain.utils.ProjectUtils;
-import pe.gob.pj.cspide.infraestructure.client.response.SunatDatosPrincipales;
+import pe.gob.pj.cspide.infraestructure.client.response.sunat.SunatDatosPrincipales;
 import pe.gob.pj.cspide.infraestructure.client.response.sunat.SunatDatosSecundarios;
 import pe.gob.pj.cspide.infraestructure.client.response.sunat.SunatDatosT1144;
 import pe.gob.pj.cspide.infraestructure.client.response.sunat.SunatDatosT362;
 import pe.gob.pj.cspide.infraestructure.client.response.sunat.SunatDomicilioLegal;
+import pe.gob.pj.cspide.infraestructure.client.response.sunat.SunatEstablecimientosAnexos;
+import pe.gob.pj.cspide.infraestructure.client.response.sunat.SunatEstablecimientosAnexosT1150;
+import pe.gob.pj.cspide.infraestructure.client.response.sunat.SunatRazonSocial;
+import pe.gob.pj.cspide.infraestructure.client.response.sunat.SunatRepresentatesLegales;
 import pe.gob.pj.cspide.infraestructure.client.services.SunatClient;
 import pe.gob.pj.cspide.infraestructure.rest.response.GlobalResponse;
 
@@ -166,6 +170,105 @@ public class ConsultarSunatController implements Serializable{
 		return new ResponseEntity<>(res, headers, HttpStatus.OK);
 	}
 	
+	@GetMapping(value="establecimietos-anexos")
+	public ResponseEntity<GlobalResponse> obtenerEstablecimientosAnexos(@RequestAttribute(name=ProjectConstants.AUD_CUO) String cuo,
+			@RequestParam(name = "formatoRespuesta", defaultValue = "json", required = false) String formatoRespuesta,
+			@RequestParam(name = "numruc") String numeroRuc){
+		GlobalResponse res =  new GlobalResponse();
+		res.setCodigoOperacion(cuo);
+		try {
+			List<SunatEstablecimientosAnexos> datosSecundarios = clientSunat.obtenerEstablecimientosAnexos(cuo, numeroRuc);
+			res.setCodigo(ProjectConstants.Error.CEXITO);
+			res.setDescripcion(ProjectConstants.Error.XEXITO);
+			res.setData(datosSecundarios);
+		}catch (ErrorException e) {
+			handleException(cuo, e, res);
+		} catch (Exception e) {
+			handleException(cuo, new ErrorException(ProjectConstants.Error.CE000, 
+			        ProjectConstants.Error.XERROR + ProjectConstants.Proceso.SUNAT_GET_ESTABLECIMIENTOS_ANEXOS + ProjectConstants.Error.XE000,
+			        e.getMessage(),
+			        e.getCause()), res);
+		}
+			
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.parseMediaType(!ProjectConstants.FormatoRespuesta.XML.equalsIgnoreCase(formatoRespuesta) ? MediaType.APPLICATION_JSON_VALUE : MediaType.APPLICATION_XML_VALUE));
+		return new ResponseEntity<>(res, headers, HttpStatus.OK);
+	}
+	
+	@GetMapping(value="establecimietos-anexos/t1150")
+	public ResponseEntity<GlobalResponse> obtenerEstAnexost1150(@RequestAttribute(name=ProjectConstants.AUD_CUO) String cuo,
+			@RequestParam(name = "formatoRespuesta", defaultValue = "json", required = false) String formatoRespuesta,
+			@RequestParam(name = "numruc") String numeroRuc){
+		GlobalResponse res =  new GlobalResponse();
+		res.setCodigoOperacion(cuo);
+		try {
+			List<SunatEstablecimientosAnexosT1150> datosSecundarios = clientSunat.obtenerEstablecimientosAnexosT1150(cuo, numeroRuc);
+			res.setCodigo(ProjectConstants.Error.CEXITO);
+			res.setDescripcion(ProjectConstants.Error.XEXITO);
+			res.setData(datosSecundarios);
+		}catch (ErrorException e) {
+			handleException(cuo, e, res);
+		} catch (Exception e) {
+			handleException(cuo, new ErrorException(ProjectConstants.Error.CE000, 
+			        ProjectConstants.Error.XERROR + ProjectConstants.Proceso.SUNAT_GET_EST_ANEXOS_T1150 + ProjectConstants.Error.XE000,
+			        e.getMessage(),
+			        e.getCause()), res);
+		}
+			
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.parseMediaType(!ProjectConstants.FormatoRespuesta.XML.equalsIgnoreCase(formatoRespuesta) ? MediaType.APPLICATION_JSON_VALUE : MediaType.APPLICATION_XML_VALUE));
+		return new ResponseEntity<>(res, headers, HttpStatus.OK);
+	}
+	
+	@GetMapping(value="representantes-legales")
+	public ResponseEntity<GlobalResponse> obtenerRepresentantesLegales(@RequestAttribute(name=ProjectConstants.AUD_CUO) String cuo,
+			@RequestParam(name = "formatoRespuesta", defaultValue = "json", required = false) String formatoRespuesta,
+			@RequestParam(name = "numruc") String numeroRuc){
+		GlobalResponse res =  new GlobalResponse();
+		res.setCodigoOperacion(cuo);
+		try {
+			List<SunatRepresentatesLegales> datosSecundarios = clientSunat.obtenerRepresentatesLegales(cuo, numeroRuc);
+			res.setCodigo(ProjectConstants.Error.CEXITO);
+			res.setDescripcion(ProjectConstants.Error.XEXITO);
+			res.setData(datosSecundarios);
+		}catch (ErrorException e) {
+			handleException(cuo, e, res);
+		} catch (Exception e) {
+			handleException(cuo, new ErrorException(ProjectConstants.Error.CE000, 
+			        ProjectConstants.Error.XERROR + ProjectConstants.Proceso.SUNAT_GET_REP_LEGALES + ProjectConstants.Error.XE000,
+			        e.getMessage(),
+			        e.getCause()), res);
+		}
+			
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.parseMediaType(!ProjectConstants.FormatoRespuesta.XML.equalsIgnoreCase(formatoRespuesta) ? MediaType.APPLICATION_JSON_VALUE : MediaType.APPLICATION_XML_VALUE));
+		return new ResponseEntity<>(res, headers, HttpStatus.OK);
+	}
+	
+	@GetMapping(value="buscar/razon-social")
+	public ResponseEntity<GlobalResponse> buscarPorRazonSocial(@RequestAttribute(name=ProjectConstants.AUD_CUO) String cuo,
+			@RequestParam(name = "formatoRespuesta", defaultValue = "json", required = false) String formatoRespuesta,
+			@RequestParam(name = "rsocial") String rSocial){
+		GlobalResponse res =  new GlobalResponse();
+		res.setCodigoOperacion(cuo);
+		try {
+			List<SunatRazonSocial> datosSecundarios = clientSunat.BuscarPorRazonSocial(cuo, rSocial);
+			res.setCodigo(ProjectConstants.Error.CEXITO);
+			res.setDescripcion(ProjectConstants.Error.XEXITO);
+			res.setData(datosSecundarios);
+		}catch (ErrorException e) {
+			handleException(cuo, e, res);
+		} catch (Exception e) {
+			handleException(cuo, new ErrorException(ProjectConstants.Error.CE000, 
+			        ProjectConstants.Error.XERROR + ProjectConstants.Proceso.SUNAT_BUSCAR_RAZON_SOCIAL + ProjectConstants.Error.XE000,
+			        e.getMessage(),
+			        e.getCause()), res);
+		}
+			
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.parseMediaType(!ProjectConstants.FormatoRespuesta.XML.equalsIgnoreCase(formatoRespuesta) ? MediaType.APPLICATION_JSON_VALUE : MediaType.APPLICATION_XML_VALUE));
+		return new ResponseEntity<>(res, headers, HttpStatus.OK);
+	}
 	
 	
 	private void handleException(String cuo, ErrorException e, GlobalResponse res) {

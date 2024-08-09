@@ -17,14 +17,12 @@ public class SunatDomicilioLegalResponse {
 	@XmlElement(name = "Body", namespace = "http://schemas.xmlsoap.org/soap/envelope/")
     private Body body;
 	
-	
 	@Data
 	@XmlAccessorType(XmlAccessType.FIELD)
 	@XmlType(propOrder = { "getDomicilioLegalResponse"})
 	public static class Body {
 
-	    @XmlElement(name = "getDomicilioLegalResponse", namespace = "http://service.consultaruc.registro.servicio2.sunat.gob.pe")
-	    private SunatDomicilioLegal getDomicilioLegalResponse ;
+	    private SunatDomicilioLegal getDomicilioLegalResponse;
 	}
 	
 	
