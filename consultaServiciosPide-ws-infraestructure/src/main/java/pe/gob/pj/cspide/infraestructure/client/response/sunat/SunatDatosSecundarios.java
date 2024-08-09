@@ -36,14 +36,15 @@ public class SunatDatosSecundarios implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@XmlAttribute(name = "id")
-    private String id;
-
-    @XmlAttribute(name = "root", namespace = "http://schemas.xmlsoap.org/soap/encoding/")
-    private String root;
-
-    @XmlAttribute(name = "encodingStyle", namespace = "http://schemas.xmlsoap.org/soap/envelope/")
-    private String encodingStyle;
+	/*
+	 * @XmlAttribute(name = "id") private String id;
+	 * 
+	 * @XmlAttribute(name = "root", namespace =
+	 * "http://schemas.xmlsoap.org/soap/encoding/") private String root;
+	 * 
+	 * @XmlAttribute(name = "encodingStyle", namespace =
+	 * "http://schemas.xmlsoap.org/soap/envelope/") private String encodingStyle;
+	 */
 	
 	@XmlElement(name = "dds_aparta")
     private String departamentoContribuyente; // Departamento del contribuyente
