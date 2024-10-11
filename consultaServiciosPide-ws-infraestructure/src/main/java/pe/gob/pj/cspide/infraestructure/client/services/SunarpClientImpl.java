@@ -41,7 +41,7 @@ public class SunarpClientImpl implements SunarpClient{
 	public SunarpBuscarOficinasResponse buscarOficinas(String cuo)  throws Exception{
 		
 		SunarpBuscarOficinasResponse response = null;
-		String url = ProjectProperties.getServicioSunarpUrl() + "/WSServicegetOficinas";
+		String url = ProjectProperties.getServicioSunarpUrl() + ProjectConstants.EndPoints.Sunarp.OFICINAS;
 		
 		UriComponentsBuilder builderUrl = UriComponentsBuilder.fromUriString(url)
                 .queryParam("out", ProjectConstants.FormatoRespuesta.JSON)
@@ -72,7 +72,7 @@ public class SunarpClientImpl implements SunarpClient{
 			String apellidoMaterno, String nombres, String razonSocial) throws Exception {
 		
 		SunarpBuscarTitularidadBodyResponse response = null;
-		String url = ProjectProperties.getServicioSunarpUrl() + "/WSServiceTitularidadSIRSARP";
+		String url = ProjectProperties.getServicioSunarpUrl() + ProjectConstants.EndPoints.Sunarp.TITULARIDAD;
 		
 		Map<String, String> uriVariables = new HashMap<String, String>();
         uriVariables.put("out", ProjectConstants.FormatoRespuesta.JSON);
@@ -126,7 +126,7 @@ public class SunarpClientImpl implements SunarpClient{
 			String partida) throws Exception {
 		
 		SunarpBuscarAsientosResponse response = null;
-		String url = ProjectProperties.getServicioSunarpUrl() + "/WSServicelistarAsientosSIRSARP";
+		String url = ProjectProperties.getServicioSunarpUrl() + ProjectConstants.EndPoints.Sunarp.ASIENTOS;
 		
 		UriComponentsBuilder builderUrl = UriComponentsBuilder.fromUriString(url)
                 .queryParam("out", ProjectConstants.FormatoRespuesta.JSON)
@@ -232,7 +232,7 @@ public class SunarpClientImpl implements SunarpClient{
 			String nroTotalPag, String nroPagRef, String pagina) throws Exception {
 
 		SunarpBuscarAsientoImagenResponse response = null;
-		String url = ProjectProperties.getServicioSunarpUrl() + "/WSServiceverAsientosSIRSARP";
+		String url = ProjectProperties.getServicioSunarpUrl() + ProjectConstants.EndPoints.Sunarp.ASIENTO_IMG;
 		
 		UriComponentsBuilder builderUrl = UriComponentsBuilder.fromUriString(url)
                 .queryParam("out", ProjectConstants.FormatoRespuesta.JSON)
@@ -269,7 +269,7 @@ public class SunarpClientImpl implements SunarpClient{
 	public SunarpBuscarVehiculoDetalleResponse buscarVehiculoDetalle(String cuo, String zona, String oficina,
 			String placa) throws Exception {
 		SunarpBuscarVehiculoDetalleResponse response = null;
-		String url = ProjectProperties.getServicioSunarpUrl() + "/WSServiceverDetalleRPVExtra";
+		String url = ProjectProperties.getServicioSunarpUrl() + ProjectConstants.EndPoints.Sunarp.VEHICULO_DETALLE;
 		
 		UriComponentsBuilder builderUrl = UriComponentsBuilder.fromUriString(url)
                 .queryParam("out", ProjectConstants.FormatoRespuesta.JSON)
@@ -305,7 +305,7 @@ public class SunarpClientImpl implements SunarpClient{
 	@Override
 	public SunarpBuscarPersonaJuridicaResponse buscarPersonaJuridica(String cuo, String razonSocial) throws Exception {
 		SunarpBuscarPersonaJuridicaResponse response = null;
-		String url = ProjectProperties.getServicioSunarpUrl() + "/WSServicePJRazonSocial";
+		String url = ProjectProperties.getServicioSunarpUrl() + ProjectConstants.EndPoints.Sunarp.PERSONA_JURIDICA;
 		
 		UriComponentsBuilder builderUrl = UriComponentsBuilder.fromUriString(url)
                 .queryParam("out", ProjectConstants.FormatoRespuesta.JSON)
