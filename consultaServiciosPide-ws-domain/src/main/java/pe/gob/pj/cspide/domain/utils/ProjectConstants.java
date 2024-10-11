@@ -11,6 +11,17 @@ public class ProjectConstants {
 		public static final String AUDITORIA_GENERAL = "auditoriageneral";
 	}
 	
+	public class EndPoints {
+		public class Sunarp {
+			public static final String OFICINAS = "/GOficina";
+			public static final String TITULARIDAD = "/TSIRSARP";
+			public static final String ASIENTOS = "/LASIRSARP";
+			public static final String ASIENTO_IMG = "/VASIRSARP";
+			public static final String VEHICULO_DETALLE = "/VDRPVExtra";
+			public static final String PERSONA_JURIDICA = "/BPJRSocial";
+		}
+	}
+	
 	public class Caracter {
 		public static final String VACIO = "";
 	}
