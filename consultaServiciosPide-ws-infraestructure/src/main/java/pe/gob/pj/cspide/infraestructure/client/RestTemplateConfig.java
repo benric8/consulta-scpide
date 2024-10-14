@@ -22,9 +22,6 @@ public class RestTemplateConfig {
 	@Bean
     public RestTemplate restTemplate() throws IOException {
 		RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory());
-		//MappingJackson2XmlHttpMessageConverter xmlConverter = new MappingJackson2XmlHttpMessageConverter();
-        //xmlConverter.setObjectMapper(new XmlMapper());
-        //restTemplate.getMessageConverters().add(xmlConverter);
         return restTemplate;
     }
 
@@ -35,8 +32,8 @@ public class RestTemplateConfig {
         
         
         // Remover para produccion - Configuración del proxy 
-        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxygob4.pj.gob.pe", 3128));
-        factory.setProxy(proxy);
+//        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxygob4.pj.gob.pe", 3128));
+//        factory.setProxy(proxy);
         
         return factory;
     }
